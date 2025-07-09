@@ -4,6 +4,6 @@ import { protectRoute, requireAdmin } from "../middleware/auth.middleware.js";
 
 const route = Router();
 
-route.post("/", protectRoute, requireAdmin, createSong);
+route.post("/songs", protectRoute, requireAdmin, createSong);
 
 export default route;
