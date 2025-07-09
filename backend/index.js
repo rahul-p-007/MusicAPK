@@ -1,5 +1,10 @@
+// importing the modules
 import express from "express";
+import { clerkMiddleware } from "@clerk/express";
+import dotenv from "dotenv";
+dotenv.config();
 
+// importing the files
 import { connectDb } from "./connection/connect_to_mongoDB.js";
 
 // Routes
@@ -12,6 +17,7 @@ import statsRoutes from "./routes/stat.routes.js";
 const app = express();
 
 app.use(express.json());
+app.use(clerkMiddleware()); //this will add auth to req obj => req.authId
 
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
