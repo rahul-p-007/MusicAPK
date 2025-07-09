@@ -1,1 +1,1 @@
-export const getAdim = (req, res) => {};
+export const createSong = (req, res) => {};
