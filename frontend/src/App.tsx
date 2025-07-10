@@ -1,29 +1,12 @@
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-} from "@clerk/clerk-react";
-import { Button } from "./components/ui/button";
-
+import { Routes, Route } from "react-router-dom";
+import HomePage from "./pages/home/HomePage.tsx";
+import AuthCallbackPage from "./pages/auth-callback/AuthCallbackPage.tsx";
 function App() {
   return (
-    <div>
-      <div>
-        <header>
-          <center>
-            <SignedOut>
-              <SignInButton />
-            </SignedOut>
-            <SignedIn>
-              <Button variant={"default"}>
-                <UserButton />
-              </Button>
-            </SignedIn>
-          </center>
-        </header>
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/auth-callback" element={<AuthCallbackPage />} />
+    </Routes>
   );
 }
 
