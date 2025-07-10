@@ -4,6 +4,7 @@ import { clerkMiddleware } from "@clerk/express";
 import dotenv from "dotenv";
 import fileUpload from "express-fileupload";
 import path from "path";
+import cors from "cors";
 dotenv.config();
 
 // importing the files
@@ -16,10 +17,16 @@ import adminRoutes from "./routes/admin.routes.js";
 import songRoutes from "./routes/song.routes.js";
 import albumRoutes from "./routes/album.routes.js";
 import statsRoutes from "./routes/stat.routes.js";
-import { create } from "domain";
 
 const app = express();
 const __dirname = path.resolve();
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(clerkMiddleware()); //this will add auth to req obj => req.auth.userId
