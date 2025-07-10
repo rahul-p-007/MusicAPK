@@ -16,7 +16,6 @@ import adminRoutes from "./routes/admin.routes.js";
 import songRoutes from "./routes/song.routes.js";
 import albumRoutes from "./routes/album.routes.js";
 import statsRoutes from "./routes/stat.routes.js";
-import fileUpload from "express-fileupload";
 import { create } from "domain";
 
 const app = express();
@@ -54,13 +53,11 @@ app.use("/api/stats", statsRoutes);
 // error handler
 
 app.use((err, req, res, next) => {
-  res
-    .status(500)
-    .json({
-      error:
-        process.env.NODE_ENV === "development"
-          ? "Internal server error"
-          : err.message,
-    });
+  res.status(500).json({
+    error:
+      process.env.NODE_ENV === "development"
+        ? "Internal server error"
+        : err.message,
+  });
 });
 connectDb(app);
