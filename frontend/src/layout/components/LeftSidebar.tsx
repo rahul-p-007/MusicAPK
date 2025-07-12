@@ -5,11 +5,17 @@ import { Link } from "react-router-dom";
 import { SignedIn } from "@clerk/clerk-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import PlaylistSkeleton from "@/components/skeletons/PlaylistSkeleton";
+import { useMusicStore } from "@/stores/useMusicStore";
+import { useEffect } from "react";
 
 function LeftSidebar() {
-  const isLoading = true;
   // data fetching logic
+  const { albums, fetchAlbums, isLoading } = useMusicStore();
 
+  useEffect(() => {
+    fetchAlbums();
+  }, [fetchAlbums]);
+  console.log({ albums });
   return (
     <div className="h-full flex flex-col gap-2">
       {/* Navigation Menu */}
@@ -57,7 +63,29 @@ function LeftSidebar() {
 
         <ScrollArea className="h-[calc(100vh-300px)]">
           <div className="space-y-2">
-            {isLoading ? <PlaylistSkeleton /> : "Some Music"}
+            {isLoading ? (
+              <PlaylistSkeleton />
+            ) : (
+              albums.map((album) => (
+                <Link
+                  to={`/playlist/${album.id}`}
+                  key={album.id}
+                  className={`p-2 rounded-md flex items-center gap-3 hover:bg-zinc-800 group cursor-pointer`}
+                >
+                  <img
+                    src={album.imageUrl}
+                    alt="Playlist image"
+                    className="size-12 rounded-md flex-shrink-0 object-cover"
+                  />
+                  <div className="flex-1 min-w-0 hidden md:block">
+                    <p className="font-medium truncate">{album.title}</p>
+                    <p className="text-zinc-400 text-sm truncate">
+                      Album . {album.artist}
+                    </p>
+                  </div>
+                </Link>
+              ))
+            )}
           </div>
         </ScrollArea>
       </div>
