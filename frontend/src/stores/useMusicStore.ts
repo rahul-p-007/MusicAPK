@@ -1,10 +1,10 @@
 import { axiosInstance } from "@/lib/axios";
+import type { Album, Song } from "@/types";
 import { create } from "zustand";
 interface MusicStore {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  songs: any[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  albums: any[];
+  songs: Song[];
+
+  albums: Album[];
   isLoading: boolean;
   error: string | null;
   fetchAlbums: () => Promise<void>;
