@@ -5,6 +5,7 @@ import {
 } from "@/components/ui/resizable";
 import { Outlet } from "react-router-dom";
 import LeftSidebar from "./components/LeftSidebar";
+import FriendsActivity from "./components/FriendsActivity";
 
 function Mainlayout() {
   const isMobile = false;
@@ -38,7 +39,7 @@ function Mainlayout() {
           maxSize={20}
           collapsedSize={0}
         >
-          {/* friend Activity */}
+          <FriendsActivity />
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>
