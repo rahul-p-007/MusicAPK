@@ -3,10 +3,13 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/clerk-react";
 import { axiosInstance } from "@/lib/axios";
 import { Loader } from "lucide-react";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const { getToken } = useAuth(); // Get the getToken function from Clerk to fetch the current user's auth token
   const [loading, setLoading] = useState(true);
+
+  const { checkAdminStatus } = useAuthStore();
 
   // Function to set or clear the Authorization header in axios
   const updateApiToken = async (token: string | null) => {
@@ -29,6 +32,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         const token = await getToken();
         // Set the token in axios headers
         updateApiToken(token);
+
+        // Check for the admin
+        if (token) {
+          await checkAdminStatus();
+        }
       } catch (error) {
         // If token fetching fails, clear the Authorization header
         updateApiToken(null);
