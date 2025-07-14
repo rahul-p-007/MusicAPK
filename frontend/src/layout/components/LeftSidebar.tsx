@@ -68,7 +68,7 @@ function LeftSidebar() {
             ) : (
               albums.map((album) => (
                 <Link
-                  to={`/playlist/${album._id}`}
+                  to={`/albums/${album._id}`}
                   key={album._id}
                   className={`p-2 rounded-md flex items-center gap-3 hover:bg-zinc-800 group cursor-pointer`}
                 >
