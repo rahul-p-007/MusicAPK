@@ -48,7 +48,7 @@ const AdminPage = () => {
         <TabsContent value="songs">
           <SongTabContent />
         </TabsContent>
-        <TabsContent value="alubms">
+        <TabsContent value="albums">
           <AlbumTabContent />
         </TabsContent>
       </Tabs>
