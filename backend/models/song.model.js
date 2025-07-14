@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const songSchema = new mongoose.Schema(
   {
     title: {
@@ -12,6 +13,10 @@ const songSchema = new mongoose.Schema(
     imageUrl: {
       type: String,
       required: true,
+    },
+    audioUrl: {
+      type: String,
+      required: true, // or false if optional
     },
     duration: {
       type: Number,

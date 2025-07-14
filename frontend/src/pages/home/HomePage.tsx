@@ -7,13 +7,11 @@ import SectionGrid from "./components/SectionGrid";
 
 function HomePage() {
   const {
-    featuredSongs,
     trendingSongs,
     madeForYouSongs,
     fetchFeaturedSongs,
     fetchTrendingSongs,
     fetchMadeForYouSongs,
-    isLoading,
   } = useMusicStore();
 
   useEffect(() => {
