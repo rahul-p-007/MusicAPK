@@ -32,21 +32,14 @@ app.use(express.json());
 app.use(clerkMiddleware()); //this will add auth to req obj => req.auth.userId
 
 // Middleware for handling file uploads in Express
+
 app.use(
   fileUpload({
-    // This sets where temporary files will be stored during the upload process.
-    // However, `useTempFiles` should be a boolean. You're passing a path here, which is incorrect.
-    // It should be:
-    // useTempFiles: true,
-    // tempFileDir: path.join(__dirname, "temp")
-    useTempFiles: path.join(__dirname, "temp"),
-
-    // Automatically creates the parent directory if it doesn't exist
+    useTempFiles: true, // ✅ This tells express-fileupload to use the filesystem for temporary files
+    tempFileDir: path.join(__dirname, "temp"), // ✅ Directory where those files will be stored
     createParentPath: true,
-
-    // Limit the maximum size of the uploaded file to 10 MB
     limits: {
-      fileSize: 10 * 1024 * 1024, // 10 megabytes in bytes
+      fileSize: 10 * 1024 * 1024, // 10 MB
     },
   })
 );

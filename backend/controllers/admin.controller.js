@@ -4,7 +4,7 @@ import cloudinary from "../lib/cloudinary.js";
 
 const uploadToCloudinary = async (file) => {
   try {
-    const result = cloudinary.uploader.upload(file.tempFilePath, {
+    const result = await cloudinary.uploader.upload(file.tempFilePath, {
       resource_type: "auto",
     });
     return result.secure_url;
@@ -15,12 +15,16 @@ const uploadToCloudinary = async (file) => {
 };
 
 export const createSong = async (req, res, next) => {
+  console.log("audioFile:", req.files.audioFile);
+  console.log("imageFile:", req.files.imageFile);
+
   try {
-    if (!req.files || !res.files.audioFile || !req.files.imageFile) {
+    if (!req.files || !req.files.audioFile || !req.files.imageFile) {
       return res
         .status(400)
         .json({ message: "Please upload both audio and image files." });
     }
+
     const { title, artist, albumId, duration } = req.body;
     const audioFile = req.files.audioFile;
     const imageFile = req.files.imageFile;
@@ -38,7 +42,6 @@ export const createSong = async (req, res, next) => {
     });
 
     await song.save();
-    // if song belongs to an album , add it to the album's song array
 
     if (albumId) {
       await Album.findByIdAndUpdate(albumId, {

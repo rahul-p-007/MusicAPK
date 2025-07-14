@@ -20,3 +20,9 @@ export interface Album {
   // createdAt: Date;
   // updatedAt: Date;
 }
+export interface Stats {
+  totalSongs: number;
+  totalAlbums: number;
+  totalUsers: number;
+  totalArtists: number;
+}
