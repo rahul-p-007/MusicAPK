@@ -6,11 +6,10 @@ import {
 import { Outlet } from "react-router-dom";
 import LeftSidebar from "./components/LeftSidebar";
 import FriendsActivity from "./components/FriendsActivity";
-// import AudioPlayer from "./components/AudioPlayer";
-// import { PlaybackControls } from "./components/PlaybackControls";
+
 import { useEffect, useState } from "react";
-import { PlaybackControls } from "./components/PlayBackControls";
 import { AudioPlayer } from "./components/AudioPlayer";
+import { PlaybackControls } from "./components/PlaybackControls";
 
 const MainLayout = () => {
   const [isMobile, setIsMobile] = useState(false);

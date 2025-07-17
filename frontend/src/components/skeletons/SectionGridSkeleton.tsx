@@ -1,5 +1,3 @@
-import React from "react";
-
 const SectionGridSkeleton = () => {
   return (
     <div className="mb-8">
