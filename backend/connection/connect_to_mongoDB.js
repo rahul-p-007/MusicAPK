@@ -6,7 +6,7 @@ dotenv.config();
 const connectionString = process.env.MONGO_URI;
 const PORT = process.env.PORT || 5000;
 
-export const connectDb = async (app) => {
+export const connectDb = async (httpServer) => {
   try {
     if (!connectionString) {
       throw new Error("MONGO_URI is undefined");
@@ -18,7 +18,7 @@ export const connectDb = async (app) => {
 
     console.log("✅ Database is connected successfully");
 
-    app.listen(PORT, () => {
+    httpServer.listen(PORT, () => {
       console.log(`🚀 Server is running on port ${PORT}`);
     });
   } catch (error) {

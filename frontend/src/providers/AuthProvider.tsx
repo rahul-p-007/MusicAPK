@@ -4,12 +4,15 @@ import { useAuth } from "@clerk/clerk-react";
 import { axiosInstance } from "@/lib/axios";
 import { Loader } from "lucide-react";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { useChatStore } from "@/stores/useChatStore";
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
-  const { getToken } = useAuth(); // Get the getToken function from Clerk to fetch the current user's auth token
+  const { getToken, userId } = useAuth(); // Get the getToken function from Clerk to fetch the current user's auth token
   const [loading, setLoading] = useState(true);
 
   const { checkAdminStatus } = useAuthStore();
+
+  const { initSocket, disconnectSocket } = useChatStore();
 
   // Function to set or clear the Authorization header in axios
   const updateApiToken = async (token: string | null) => {
@@ -36,6 +39,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         // Check for the admin
         if (token) {
           await checkAdminStatus();
+          if (userId) initSocket(userId);
         }
       } catch (error) {
         // If token fetching fails, clear the Authorization header
@@ -48,7 +52,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     initAuth();
-  }, [getToken]);
+
+    // clean up
+    return () => disconnectSocket();
+  }, [getToken, userId, checkAdminStatus, initSocket, disconnectSocket]);
 
   // If loading is true, show a full-screen centered spinner
   if (loading)

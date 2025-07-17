@@ -5,8 +5,9 @@ import dotenv from "dotenv";
 import fileUpload from "express-fileupload";
 import path from "path";
 import cors from "cors";
+import { createServer } from "http";
 dotenv.config();
-
+import { initializeSocket } from "./lib/socket.js";
 // importing the files
 import { connectDb } from "./connection/connect_to_mongoDB.js";
 
@@ -20,6 +21,8 @@ import statsRoutes from "./routes/stat.routes.js";
 
 const app = express();
 const __dirname = path.resolve();
+const httpServer = createServer(app);
+initializeSocket(httpServer);
 
 app.use(
   cors({
@@ -60,4 +63,4 @@ app.use((err, req, res, next) => {
         : err.message,
   });
 });
-connectDb(app);
+connectDb(httpServer);

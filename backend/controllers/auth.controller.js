@@ -9,7 +9,7 @@ export const authCallback = async (req, res) => {
       {
         $setOnInsert: {
           clerkId: id,
-          fullName: `${firstName} ${lastName}`,
+          fullName: `${firstName || ""} ${lastName || ""}`.trim(),
           imageUrl,
         },
       },
