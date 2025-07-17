@@ -7,9 +7,29 @@ import path from "path";
 import cors from "cors";
 import { createServer } from "http";
 dotenv.config();
+import fs from "fs";
+import cron from "node-cron";
+
 import { initializeSocket } from "./lib/socket.js";
 // importing the files
 import { connectDb } from "./connection/connect_to_mongoDB.js";
+
+const tempDir = path.join(process.cwd(), "temp");
+
+cron.schedule("0 * * * *", () => console.log("running a task every minute"));
+
+if (fs.existsSync(tempDir)) {
+  // fs.rmSync(tempDir, { recursive: true, force: true });
+  fs.readdir(tempDir, (err, files) => {
+    if (err) {
+      console.log("error", err);
+      return;
+    }
+    for (const file of files) {
+      fs.unlinkSync(path.join(tempDir, file), (err) => {});
+    }
+  });
+}
 
 // Routes
 import userRoutes from "./routes/user.routes.js";
